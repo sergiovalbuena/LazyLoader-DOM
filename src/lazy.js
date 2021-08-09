@@ -5,16 +5,24 @@ const isIntersecting = (entry) => {
     return entry.isIntersecting;
 };
 
-const accion = (entry) => {
-    const nodo = entry.target
+const loadImage = (entry) => {
+    const container = entry.target; 
+    const imagen = container.firstChild;
+    const url =  imagen.dataset.src 
+
+    //Load img
+    imagen.src = url;
+
+
     console.log("holis");
-    observer.unobserve(nodo)
+    //dejar de registrar la img para que solo cuente una unica vez
+    observer.unobserve(container)
 }
 
 const observer = new IntersectionObserver((entries) => {
     entries
         .filter(isIntersecting)
-        .forEach(accion);
+        .forEach(loadImage);
 });
 
 export const registerImage = (imagen) => {
